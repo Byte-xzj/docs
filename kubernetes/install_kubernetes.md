@@ -39,20 +39,20 @@
 - CentOS 7，执行如下命令：
 
     ```
-        # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-        [kubernetes]
-        name=Kubernetes
-        baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
-        enabled=1
-        gpgcheck=1
-        repo_gpgcheck=1
-        gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-               https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-        EOF
-        # setenforce 0
-        # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
-        # systemctl enable docker && systemctl start docker
-        # systemctl enable kubelet && systemctl start kubelet
+    # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+    [kubernetes]
+    name=Kubernetes
+    baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
+    enabled=1
+    gpgcheck=1
+    repo_gpgcheck=1
+    gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+           https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    EOF
+    # setenforce 0
+    # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+    # systemctl enable docker && systemctl start docker
+    # systemctl enable kubelet && systemctl start kubelet
     ```
  
 ### 初始化 master 
@@ -66,24 +66,24 @@
 
 
 ```
-    <master/tokens> generated token: "f0c861.753c505740ecde4c"
-    <master/pki> created keys and certificates in "/etc/kubernetes/pki"
-    <util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
-    <util/kubeconfig> created "/etc/kubernetes/admin.conf"
-    <master/apiclient> created API client configuration
-    <master/apiclient> created API client, waiting for the control plane to become ready
-    <master/apiclient> all control plane components are healthy after 61.346626 seconds
-    <master/apiclient> waiting for at least one node to register and become ready
-    <master/apiclient> first node is ready after 4.506807 seconds
-    <master/discovery> created essential addon: kube-discovery
-    <master/addons> created essential addon: kube-proxy
-    <master/addons> created essential addon: kube-dns
-    
-    Kubernetes master initialised successfully!
-    
-    You can connect any number of nodes by running:
-    
-    kubeadm join --token <token> <master-ip>
+<master/tokens> generated token: "f0c861.753c505740ecde4c"
+<master/pki> created keys and certificates in "/etc/kubernetes/pki"
+<util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
+<util/kubeconfig> created "/etc/kubernetes/admin.conf"
+<master/apiclient> created API client configuration
+<master/apiclient> created API client, waiting for the control plane to become ready
+<master/apiclient> all control plane components are healthy after 61.346626 seconds
+<master/apiclient> waiting for at least one node to register and become ready
+<master/apiclient> first node is ready after 4.506807 seconds
+<master/discovery> created essential addon: kube-discovery
+<master/addons> created essential addon: kube-proxy
+<master/addons> created essential addon: kube-dns
+
+Kubernetes master initialised successfully!
+
+You can connect any number of nodes by running:
+
+kubeadm join --token <token> <master-ip>
 ```
 
 记录下 **kubeadm init** 输出的 **kubeadm join** 命令行。
@@ -103,13 +103,13 @@
 通过如下命令安装 pod 网络插件：
 
 ```
-    # kubectl apply -f <add-on.yaml>
+# kubectl apply -f <add-on.yaml>
 ```
 
 以 Calico 网络插件为例，在[Calico官网](http://docs.projectcalico.org/v1.6/getting-started/kubernetes/installation/hosted/)上下载 calico.yaml 文件到本地，然后执行如下命令：
 
 ```
-    # kubectl apply -f calico.yaml
+# kubectl apply -f calico.yaml
 ```
 
 具体细节请参阅特定插件安装指南。一个集群中只能安装一个 pod 网络。
@@ -118,21 +118,21 @@
 
 节点作为工作负载运行容器和pods等。如果你要将一个新的机器作为节点加入集群中，须将每个机器切换为root用户，并执行之前 **kubeadm init ** 的输出命令，例如：
 ```
-    # kubeadm join --token <token> <master-ip>
-    <util/tokens> validating provided token
-    <node/discovery> created cluster info discovery client, requesting info from "http://138.68.156.129:9898/cluster-info/v1/?token-id=0f8588"
-    <node/discovery> cluster info object received, verifying signature using given token
-    <node/discovery> cluster info signature and contents are valid, will use API endpoints [https://138.68.156.129:443]
-    <node/csr> created API client to obtain unique certificate for this node, generating keys and certificate signing request
-    <node/csr> received signed certificate from the API server, generating kubelet configuration
-    <util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
-    
-    Node join complete:
-    * Certificate signing request sent to master and response
-      received.
-    * Kubelet informed of new secure connection details.
-    
-    Run 'kubectl get nodes' on the master to see this machine join.
+# kubeadm join --token <token> <master-ip>
+<util/tokens> validating provided token
+<node/discovery> created cluster info discovery client, requesting info from "http://138.68.156.129:9898/cluster-info/v1/?token-id=0f8588"
+<node/discovery> cluster info object received, verifying signature using given token
+<node/discovery> cluster info signature and contents are valid, will use API endpoints [https://138.68.156.129:443]
+<node/csr> created API client to obtain unique certificate for this node, generating keys and certificate signing request
+<node/csr> received signed certificate from the API server, generating kubelet configuration
+<util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
+
+Node join complete:
+* Certificate signing request sent to master and response
+  received.
+* Kubelet informed of new secure connection details.
+
+Run 'kubectl get nodes' on the master to see this machine join.
 ```
 在 master 上运行 **kubectl get nodes** 命名即可插件节点集群信息。
 
@@ -142,15 +142,15 @@
 ### 非 master 节点控制集群
 
 ```
-    # scp root@<master ip>:/etc/kubernetes/admin.conf .
-    # kubectl --kubeconfig ./admin.conf get nodes
+# scp root@<master ip>:/etc/kubernetes/admin.conf .
+# kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 ### 撤销 **kubeadm** 
 
 - 撤销 **kubeadm**，只需执行如下命令：
 ```
-    # kubeadm reset
+# kubeadm reset
 ```
 
 如果你想重新启动集群，执行 **systemctl start kubelet** ，再执行 **kubeadm init** 或 **kubeadm join** 。
