@@ -37,6 +37,7 @@
         # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
     ```
 - CentOS 7，执行如下命令：
+
     ```
         # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
         [kubernetes]
