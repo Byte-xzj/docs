@@ -146,7 +146,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 # kubectl --kubeconfig ./admin.conf get nodes
 ```
 
-### 撤销 **kubeadm** 
+## 撤销 **kubeadm** 
 
 - 撤销 **kubeadm**，只需执行如下命令：
 ```
