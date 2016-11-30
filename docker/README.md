@@ -8,6 +8,6 @@
 - [网络配置](network_containers.md "网络配置")
 - [Dockerfile](dockerfile_reference.md "Dockerfile")
 - [容器网络](container_networking.md "容器网络")
-- [存储驱动](storage_drivers.md.md "存储驱动")
-- [shipyard 部署](../shipyard/README.md "shipyard deployment")
+- [存储驱动](storage_drivers.md "存储驱动")
+
 
